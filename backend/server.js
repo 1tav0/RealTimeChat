@@ -5,6 +5,7 @@ import cookieParser from "cookie-parser";
 dotenv.config();
 import authRoute from "./routes/auth.routes.js";
 import messageRoute from "./routes/message.routes.js";
+import userRoute from "./routes/user.routes.js";
 import connect from "./db/connect.js";
 
 //middleware
@@ -13,6 +14,7 @@ app.use(cookieParser());
 //routes
 app.use("/api/v1", authRoute);
 app.use("/api/v1", messageRoute);
+app.use("/api/v1", userRoute);
 app.get("/", (req, res) => {
   res.send("Hello from server");
 });
