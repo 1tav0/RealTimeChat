@@ -25,16 +25,21 @@ const userSchema = new mongoose.Schema({
     type: String,
     default: ""
   }
-});
+}, {timestamps: true});
 
-const User = mongoose.model("User", userSchema);
-export default User;
 
 userSchema.pre("save", async function () {
-  const salt = await bcrypt.genSalt(10);
-  this.password = await bcrypt.hash(this.password, salt);
+  // if password is reset to a new one we have to hash it
+  if (this.isModified('password')) {
+    const salt = await bcrypt.genSalt(10);
+    this.password = await bcrypt.hash(this.password, salt);
+  }
 });
 
 userSchema.methods.isPasswordMatched = async function (password) {
   return await bcrypt.compare(this.password, password);
 }
+
+
+const User = mongoose.model("User", userSchema);
+export default User;
