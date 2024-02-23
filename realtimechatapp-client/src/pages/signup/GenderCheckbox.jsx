@@ -1,5 +1,5 @@
 
-const GenderCheckbox = () => {
+const GenderCheckbox = ({onCheckboxChanged, selectedGender}) => {
   return (
     <div className="flex">
       <div className="form-control">
@@ -8,7 +8,10 @@ const GenderCheckbox = () => {
             Male
           </span>
           <input type="checkbox"
-            className="checkbox border-slate-900" />
+            className="checkbox border-slate-900"
+            checked={selectedGender === "male"}
+            onChange={()=>onCheckboxChanged("male")}
+          />
         </label>
       </div>
       <div className="form-control">
@@ -16,7 +19,11 @@ const GenderCheckbox = () => {
           <span>
             Female
           </span>
-          <input type="checkbox" className="checkbox border-slate-900" />
+          <input type="checkbox"
+            className="checkbox border-slate-900"
+            checked={selectedGender === "female"}
+            onChange={()=>onCheckboxChanged("female")}
+          />
         </label>
       </div>
     </div>

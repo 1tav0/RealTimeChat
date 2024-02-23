@@ -12,6 +12,16 @@ const SignUp = () => {
     gender: ''
   })
 
+  // spread the old inputs and add the gender to it
+  const handleCheckBoxChange = (gender) => {
+    setInputs({...inputs, gender})
+  }
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log(inputs);
+  }
+
   return (
     <div className="min-w-96 mx-auto flex flex-col items-center justify-center">
       <div className="bg-gray-400 w-full p-6 rounded-lg shadow-md bg-clip-padding backdrop-filter backdrop-blur-lg bg-opacity-0">
@@ -22,7 +32,9 @@ const SignUp = () => {
           </span>
         </h1>
 
-        <form>
+        <form
+          onSubmit={handleSubmit}
+        >
           <div>
             <label className="label p-2">
               <span className="text-base label-text">
@@ -84,7 +96,11 @@ const SignUp = () => {
           </div>
 
           {/* GENDER CHECKBOX GOES HERE */}
-          <GenderCheckbox />
+          {/* add the made method as a callback */}
+          <GenderCheckbox
+            onCheckboxChange={handleCheckBoxChange}
+            selectedGender={inputs.gender}
+          />
 
           <Link to="/login" className="text-sm hover:underline hover:text-blue-600 mt-2 inline-block">
             Already have an account ?
