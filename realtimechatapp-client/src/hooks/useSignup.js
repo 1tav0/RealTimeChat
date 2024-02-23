@@ -39,7 +39,11 @@ const useSignup = () => {
       const data = await response.data;
       if (data.error) {
         throw new Error(data.error);
+      } else {
+        localStorage.setItem("jwt", response)
       }
+      // save to local storage
+      // useContext
 
     } catch (error) {
       toast.error(error.message);
