@@ -2,11 +2,12 @@ import { useState } from "react";
 import api from "../api/axiosConfig";
 // custom hook to make it cleaner in the signup component with less code 
 import toast from "react-hot-toast";
+import { useAuthContext } from "../context/AuthContext";
 
 // will return a state 
 const useSignup = () => {
   const [loading, setLoading] = useState(false);
-
+  const { setAuthUser } = useAuthContext();
   const signup = async ({ fullName, username, password, confirmPassword, gender }) => {
     const success = handleInputErrors({ fullName, username, password, confirmPassword, gender });
     if (!success) {
@@ -39,11 +40,11 @@ const useSignup = () => {
       const data = await response.data;
       if (data.error) {
         throw new Error(data.error);
-      } else {
-        localStorage.setItem("jwt", response)
       }
       // save to local storage
-      // useContext
+      localStorage.setItem("chat-user", JSON.stringify(data))
+      // conntext
+      setAuthUser(data);
 
     } catch (error) {
       toast.error(error.message);
