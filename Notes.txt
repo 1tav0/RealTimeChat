@@ -33,3 +33,5 @@ follow the steps in the docs
 
 the daisy comes into place for knowing how to make a input for example for the login component just search up input and get the tailwind for the component 
 - also google tailwindcss glassmorphism for the glass effect in tailwind
+
+- also check box component tailwind css in daisy docs just search up check box
