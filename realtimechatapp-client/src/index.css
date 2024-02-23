@@ -3,9 +3,29 @@
 @tailwind utilities;
 
 body{
-  background: linear-gradient(to bottom, rgba(0,0,0,0), rgba(0,0,0,1)), url("/cr7.jpg");
+  background: linear-gradient(to bottom, rgba(0,0,0,0), rgba(0,0,0,1)), url("/uchiha.jpg");
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
   background-attachment: fixed;
+}
+
+/* dark mode looking scrollbar */
+/* to disappear scroll bar */
+::-webkit-scrollbar{
+  width: 7px;
+}
+
+/* to appear a new scroll bar track*/
+::-webkit-scrollbar-track{
+  background: #555;
+}
+/* change its color of the bar inside the track*/
+::-webkit-scrollbar-thumb{
+  background: #121212;
+  border-radius: 5px;
+}
+/* change its color on hover */
+::-webkit-scrollbar-thumb:hover{
+  background: #242424;
 }

@@ -35,3 +35,6 @@ the daisy comes into place for knowing how to make a input for example for the l
 - also google tailwindcss glassmorphism for the glass effect in tailwind
 
 - also check box component tailwind css in daisy docs just search up check box
+
+- also form from daisy ui 
+- also the chat bubble from daisy ui
