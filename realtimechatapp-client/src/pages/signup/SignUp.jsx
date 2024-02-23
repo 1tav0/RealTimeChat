@@ -1,9 +1,17 @@
-import { Link } from "react-router-dom"
-import GenderCheckbox from "./GenderCheckbox"
+import { Link } from "react-router-dom";
+import GenderCheckbox from "./GenderCheckbox";
+import { useState } from "react";
 
 const SignUp = () => {
 
-  
+  const [inputs, setInputs] = useState({
+    fullName: '',
+    username: '',
+    password: '',
+    confirmPassword: '',
+    gender: ''
+  })
+
   return (
     <div className="min-w-96 mx-auto flex flex-col items-center justify-center">
       <div className="bg-gray-400 w-full p-6 rounded-lg shadow-md bg-clip-padding backdrop-filter backdrop-blur-lg bg-opacity-0">
@@ -25,6 +33,8 @@ const SignUp = () => {
               type="text"
               placeholder="Jhon Doe"
               className="w-full input input-bordered h-10"
+              value={inputs.fullName}
+              onChange={(e)=>setInputs({...inputs, fullName: e.target.value})}
             />
           </div>
 
@@ -38,6 +48,8 @@ const SignUp = () => {
               type="text"
               placeholder="jhondoe"
               className="w-full input input-bordered h-10"
+              value={inputs.username}
+              onChange={((e)=>setInputs({...inputs, username: e.target.value}))}
             />
           </div>
 
@@ -51,6 +63,8 @@ const SignUp = () => {
               type="password"
               placeholder="password"
               className="w-full input input-bordered h-10"
+              value={inputs.password}
+              onChange={(e)=>setInputs({...inputs, password: e.target.value})}
             />
           </div>
 
@@ -64,6 +78,8 @@ const SignUp = () => {
               type="text"
               placeholder="Jhone Doe"
               className="w-full input input-bordered h-10"
+              value={inputs.confirmPassword}
+              onChange={(e)=>setInputs({...inputs, confirmPassword: e.target.value})}
             />
           </div>
 
