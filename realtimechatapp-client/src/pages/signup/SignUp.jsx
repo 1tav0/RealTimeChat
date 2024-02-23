@@ -18,7 +18,7 @@ const SignUp = () => {
     setInputs({...inputs, gender})
   }
 
-  const { loading, signup } = useSignup();
+  const { signup } = useSignup();
 
   const handleSubmit = async (e) => {
     e.preventDefault();

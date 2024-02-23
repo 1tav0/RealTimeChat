@@ -27,15 +27,19 @@ const useSignup = () => {
       //     gender
       //   })
       // })
-      const response = await api.post("/api/v1/auth/signup", {
+      // const data = await response.json();
+      // console.log(data);
+      const response = await api.post("/api/v1/signup", {
         fullName,
         username,
         password,
         confirmPassword,
         gender
       })
-      const data = await response.json();
-      console.log(data);
+      const data = await response.data;
+      if (data.error) {
+        throw new Error(data.error);
+      }
 
     } catch (error) {
       toast.error(error.message);
@@ -50,7 +54,7 @@ const useSignup = () => {
 export default useSignup
 
 function handleInputErrors({ fullName, username, password, confirmPassword, gender }) {
-  if (!fullName || !username || !password || !confirmPassword || gender) {
+  if (!fullName || !username || !password || !confirmPassword || !gender) {
     toast.error('Please fill in all fields');
     return false;
   }

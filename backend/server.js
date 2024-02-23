@@ -3,12 +3,14 @@ const app = express();
 import dotenv from "dotenv";
 import cookieParser from "cookie-parser";
 dotenv.config();
+import cors from "cors";
 import authRoute from "./routes/auth.routes.js";
 import messageRoute from "./routes/message.routes.js";
 import userRoute from "./routes/user.routes.js";
 import connect from "./db/connect.js";
 
 //middleware
+app.use(cors());
 app.use(express.json());
 app.use(cookieParser());
 //routes
