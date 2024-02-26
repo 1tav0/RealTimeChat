@@ -7,6 +7,10 @@ const useLogin = () => {
   const [loading, setLoading] = useState(false);
   const { setAuthUser } = useAuthContext();
   const login = async (username, password) => {
+    const success = handleInputErrors(username, password);
+    if (!success) {
+      return;
+    }
     setLoading(true);
     try {
       const response = await api.post("/api/v1/login", {
@@ -21,11 +25,12 @@ const useLogin = () => {
       localStorage.setItem("chat-user", JSON.stringify(data));
       setAuthUser(data);
     } catch (error) {
-        if (error.response && error.response.status === 400) {
-          toast.error(error.response.data.error); // Display the specific error message from the server
-        } else {
-          toast.error("An unexpected error occurred"); // Handle other errors
-        }
+      //   if (error.response && error.response.status === 400) {
+      //     toast.error(error.response.data.error); // Display the specific error message from the server
+      //   } else {
+      //     toast.error("An unexpected error occurred"); // Handle other errors
+      // }
+        toast.error(error.response.data.error);
     } finally {
       setLoading(false);
     }
@@ -34,3 +39,16 @@ const useLogin = () => {
 };
 
 export default useLogin;
+
+function handleInputErrors(username, password) {
+  if (!username || !password) {
+    toast.error('Please fill in all fields');
+    return false;
+  }
+
+  if (password.length < 6) {
+    toast.error('Password length must be atleast 6 characters long');
+    return false;
+  }
+  return true;
+}
