@@ -8,7 +8,7 @@ const Message = () => {
         </div>
         <div className="chat-image avatar">
           <div className="w-10 rounded-full">
-            <img src="../../../public/cr7.jpg" alt="avatar" />
+            <img src="/cr7.jpg" alt="avatar" />
           </div>
         </div>
         <div className="chat-bubble text-white">
@@ -23,7 +23,7 @@ const Message = () => {
         </div>
         <div className="chat-image avatar">
           <div className="w-10 rounded-full">
-            <img src="../../../public/cr7.jpg" alt="avatar" />
+            <img src="/cr7.jpg" alt="avatar" />
           </div>
         </div>
         <div className="chat-bubble text-white">

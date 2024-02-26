@@ -13,7 +13,7 @@ const userSchema = new mongoose.Schema({
   },
   password: {
     type: String,
-    required: true,
+    required: [true, "Please provide a password"],
     minLength: 6
   },
   gender: {
@@ -28,16 +28,22 @@ const userSchema = new mongoose.Schema({
 }, {timestamps: true});
 
 
-userSchema.pre("save", async function () {
+userSchema.pre("save", async function (next) {
   // if password is reset to a new one we have to hash it
   if (this.isModified('password')) {
     const salt = await bcrypt.genSalt(10);
     this.password = await bcrypt.hash(this.password, salt);
   }
+  // if password is reset to a new one we have to hash it again else continue
+  // if (!this.isModified('password')) {
+  //   next();
+  // }
+  // const salt = await bcrypt.genSalt(10);
+  // this.password = await bcrypt.hash(this.password, salt);
 });
 
 userSchema.methods.isPasswordMatched = async function (password) {
-  return await bcrypt.compare(this.password, password);
+  return await bcrypt.compare(password, this.password);
 }
 
 

@@ -42,18 +42,21 @@ export const signup = async (req, res) => {
 export const login = async (req, res) => {
   try {
     const { username, password } = req.body;
-    const user = await User.findOne({ username });
-    if (!user || !user.isPasswordMatched(password)) {
+    console.log(username, password);
+    
+    const user = await User.findOne({ username:username });
+    if (user && await user.isPasswordMatched(password)) {
+      generateToken(user._id, res);
+      res.status(200).json({
+        _id: user?._id,
+        fullName: user?.fullName,
+        userName: user?.username,
+        avatar: user?.avatar
+      })
+      // res.status(200).json(user);
+    } else {
       return res.status(400).json({ error: "Invalid username or password" });
     }
-    generateToken(user._id, res);
-    res.status(200).json({
-      _id: user._id,
-      fullName: user.fullName,
-      userName: user.username,
-      avatar: user.avata
-    })
-    // res.status(200).json(user);
   } catch (error) {
     console.log("Error in login controller", error.message);
     res.status(500).json({ error: "Internal Server Error" });
