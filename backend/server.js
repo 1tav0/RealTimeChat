@@ -1,5 +1,4 @@
 import express from "express";
-const app = express();
 import dotenv from "dotenv";
 import cookieParser from "cookie-parser";
 dotenv.config();
@@ -8,6 +7,7 @@ import authRoute from "./routes/auth.routes.js";
 import messageRoute from "./routes/message.routes.js";
 import userRoute from "./routes/user.routes.js";
 import connect from "./db/connect.js";
+import { app,server } from './socket/socket.js'
 
 //middleware
 app.use(cors({
@@ -23,15 +23,15 @@ app.use(cookieParser());
 app.use("/api/v1", userRoute);
 app.use("/api/v1", messageRoute);
 app.use("/api/v1", authRoute);
-app.get("/", (req, res) => {
-  res.send("Hello from server");
-});
+// app.get("/", (req, res) => {
+//   res.send("Hello from server");
+// });
 // server
 const PORT = process.env.PORT || 3000;
 const start = async () => {
   try {
     await connect(process.env.MONGO_URI);
-    app.listen(PORT, () => {
+    server.listen(PORT, () => {
       console.log(`Server is running in port ${PORT}`);
     })
   } catch (error) {
