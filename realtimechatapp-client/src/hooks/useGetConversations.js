@@ -5,17 +5,19 @@ import api from "../api/axiosConfig";
 const useGetConversations = () => {
   const [loading, setLoading] = useState(false);
   const [conversations, setConversations] = useState([]);
+  const abortController = new AbortController();
 
   useEffect(() => {
     const getConversations = async () => {
 
       setLoading(true);
       try {
-        const response = await api.get('/api/v1/users');
+        const response = await api.get('/api/v1/users', {
+          signal: abortController.current?.signal
+        });
         const data = response.data;
         // console.log(data);
         if (data.error) {
-          console.log(data.error);
           throw new Error(data.error);
         }
         setConversations(data);
@@ -27,8 +29,10 @@ const useGetConversations = () => {
     }
     getConversations();
 
+    return () => {
+      abortController.abort();
+    }
   }, []);
-  console.log(conversations);
 
   return { loading, conversations }
 }
