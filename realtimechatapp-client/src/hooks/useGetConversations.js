@@ -7,13 +7,13 @@ const useGetConversations = () => {
   const [conversations, setConversations] = useState([]);
 
   useEffect(() => {
-    const getConversation = async () => {
+    const getConversations = async () => {
 
       setLoading(true);
       try {
         const response = await api.get('/api/v1/users');
         const data = response.data;
-        console.log(data);
+        // console.log(data);
         if (data.error) {
           console.log(data.error);
           throw new Error(data.error);
@@ -25,11 +25,12 @@ const useGetConversations = () => {
         setLoading(false);
       }
     }
-    getConversation();
+    getConversations();
 
   }, []);
+  console.log(conversations);
 
-  return { loading, conversations };
+  return { loading, conversations }
 }
 
 export default useGetConversations;
