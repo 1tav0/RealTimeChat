@@ -23,8 +23,10 @@ export const SocketContextProvider = ({ children }) => {
 
       setSocket(socket);
 
+      // once we are connected we would like to see who is connected and who is not here in the front end
       //socket.on() is used to listen to the events. can be used both on client and server side
       // socket.emit() is used to send the events. can be used both on client and server side
+      // this will return us the online users based on the event name from the backend and then we set the online users to be used in the front end
       socket.on("getOnlineUsers", (users) => {
         setOnlineUsers(users);
       })
@@ -37,7 +39,7 @@ export const SocketContextProvider = ({ children }) => {
         setSocket(null);
       }
     }
-  }, []);
+  }, [authUser]);
 
   return <SocketContext.Provider value={{socket, onlineUsers}}>
     {children}

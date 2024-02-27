@@ -17,7 +17,7 @@ const useLogin = () => {
         username,
         password
       });
-      console.log(response);
+      // console.log(response);
       const data = response.data;
       if (data.error) {
         throw new Error(data.error);
