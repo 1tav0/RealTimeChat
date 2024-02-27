@@ -11,7 +11,7 @@ const useSendMessage = () => {
 
   const sendMessage = async (message) => {
     // abort any render that is loading and hasnt rendered but we have called another render already so to avoid race condition between both
-    abortControllerRef.current?.current.abort();
+    abortControllerRef.current?.abort();
     // every abort controller is used once so since we aborted we must create a new one every time we abort one
     abortControllerRef.current = new AbortController();
     setLoading(true);
