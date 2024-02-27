@@ -20,13 +20,14 @@ export const signup = async (req, res) => {
         gender,
         avatar: gender === "male" ? boyAvatar : girlAvatar
       })
-      generateToken(newUser._id, res);
+      const token = generateToken(newUser._id, res);
       // res.status(201).json(newUser);
       res.status(201).json({
         _id: newUser._id,
         fullName: newUser.fullName,
         username: newUser.username,
-        avatar: newUser.avatar
+        avatar: newUser.avatar,
+        token: token
       });
 
     } else {
@@ -42,16 +43,17 @@ export const signup = async (req, res) => {
 export const login = async (req, res) => {
   try {
     const { username, password } = req.body;
-    console.log(username, password);
+    // console.log(username, password);
     
     const user = await User.findOne({ username:username });
     if (user && await user.isPasswordMatched(password)) {
-      generateToken(user._id, res);
+      const token = generateToken(user._id, res);
       res.status(200).json({
         _id: user?._id,
         fullName: user?.fullName,
         userName: user?.username,
-        avatar: user?.avatar
+        avatar: user?.avatar,
+        token: token
       })
       // res.status(200).json(user);
     } else {

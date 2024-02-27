@@ -48,3 +48,6 @@ the daisy comes into place for knowing how to make a input for example for the l
 
 - also form from daisy ui 
 - also the chat bubble from daisy ui
+
+**********Zustand*********
+- to make a global state for all our application as an alternative to context

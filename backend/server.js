@@ -10,13 +10,19 @@ import userRoute from "./routes/user.routes.js";
 import connect from "./db/connect.js";
 
 //middleware
-app.use(cors());
+app.use(cors({
+  origin: 'http://localhost:3000', // client-side origin 
+  credentials: true // Allow credentials
+}));
 app.use(express.json());
 app.use(cookieParser());
 //routes
-app.use("/api/v1", authRoute);
-app.use("/api/v1", messageRoute);
+// you need to ensure that your route configurations are properly defined and that there are no conflicting routes.
+// Make sure that the route for /users is defined before the route for /messages/:id in your route configuration.
+// Express routes are evaluated in the order they are defined, so if a request matches the /users route, it should be handled before it's interpreted as a parameter for the /messages/:id route.
 app.use("/api/v1", userRoute);
+app.use("/api/v1", messageRoute);
+app.use("/api/v1", authRoute);
 app.get("/", (req, res) => {
   res.send("Hello from server");
 });

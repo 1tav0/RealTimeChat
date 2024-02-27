@@ -22,6 +22,7 @@ const useLogin = () => {
       if (data.error) {
         throw new Error(data.error);
       }
+      // document.cookie = `jwt=${data.token}; max-age=${30 * 24 * 60 * 60}; path=/;`;
       localStorage.setItem("chat-user", JSON.stringify(data));
       setAuthUser(data);
     } catch (error) {
