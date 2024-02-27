@@ -1,9 +1,18 @@
+import { useEffect, useRef } from "react";
 import useGetMessages from "../../hooks/useGetMessages"
 import MessageSkeleton from "../Skeletons/MessageSkeleton";
 import Message from "./Message";
 const Messages = () => {
   const { loading, messages } = useGetMessages();
-  console.log(messages);
+  const lastMessageRef = useRef();
+  useEffect(() => { 
+    // rendering time affects this
+    // lastMessageRef.current?.scrollIntoView({ behavior: "smooth" });
+    // delay it some time
+    setTimeout(() => {
+      lastMessageRef.current?.scrollIntoView({ behavior: "smooth" });
+    }, 100);
+  },[messages])
   return (
     <div className="px-4 flex-1 overflow-auto">
       {
@@ -13,10 +22,14 @@ const Messages = () => {
 
       {
         !loading && messages.length > 0 && messages.map(message => (
-          <Message
+          <div
             key={message._id}
-            message={message}
-          />
+            ref={lastMessageRef}
+          >
+            <Message
+              message={message}
+            />
+          </div>
         ))
       }
 

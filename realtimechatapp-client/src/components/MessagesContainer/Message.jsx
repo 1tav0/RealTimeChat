@@ -31,7 +31,7 @@ const Message = ({ message }) => {
         <div className={`chat-bubble text-white ${backColor}`}>
           {message.message}
         </div>
-        <div className="chat-footer opacity-50 text-xs flex gap-1 items-center">{formattedDate}</div>
+        <div className="chat-footer opacity-50 text-xs flex gap-1 items-center ">{formattedDate}</div>
       </div>
     </div>
   )
