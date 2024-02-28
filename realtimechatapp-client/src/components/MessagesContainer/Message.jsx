@@ -17,6 +17,8 @@ const Message = ({ message }) => {
   const backColor = fromMe ? "bg-blue-500" : "";
   // make the time dynamic
   const formattedDate = extractTime(message.createdAt);
+  // for shake animation
+  const shakeClass = message.shouldShake ? "shake" : "";
   return (
     <div className="flex flex-col">
       <div className={`chat ${chatClassname}`}>
@@ -28,7 +30,9 @@ const Message = ({ message }) => {
             <img src={profilePic} alt="avatar" />
           </div>
         </div>
-        <div className={`chat-bubble text-white ${backColor}`}>
+        <div className={`chat-bubble text-white ${backColor}
+          ${shakeClass}
+        `}>
           {message.message}
         </div>
         <div className="chat-footer opacity-50 text-xs flex gap-1 items-center ">{formattedDate}</div>
