@@ -7,7 +7,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "server": "nodemon backend/server.js",
     "start": "node backend/server.js",
-    "build": "npm install && npm install --prefix realtimechatapp-client && npm run build --prefix realtimechatapp-client"
+    "build": "vite build && npm install && npm install --prefix realtimechatapp-client && npm run build --prefix realtimechatapp-client"
   },
   "type": "module",
   "keywords": [],
@@ -21,11 +21,6 @@
     "express": "^4.18.2",
     "jsonwebtoken": "^9.0.2",
     "mongoose": "^8.1.3",
-    "realtimechatapp": "file:",
-    "socket.io": "^4.7.4",
-    "vite": "^5.1.4"
-  },
-  "engines": {
-    "node": "18.18.0"
+    "socket.io": "^4.7.4"
   }
 }
