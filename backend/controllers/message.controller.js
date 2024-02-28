@@ -1,5 +1,6 @@
 import Conversation from "../models/conversation.model.js";
 import Message from "../models/message.model.js";
+import { getReceiverSocketId, io } from "../socket/socket.js";
 
 export const sendMessage = async (req, res) => {
   try {
@@ -29,12 +30,19 @@ export const sendMessage = async (req, res) => {
       conversation.messages.push(newMessage._id);
     }
 
-    // SOCKETIO functionality will go here 
-
-
     await conversation.save();
     // will run in parallel
     // await Promise.all([conversation.save(), newMessage.save()]);
+
+    // SOCKETIO functionality will go here 
+    // now that the data is stored in the database we send it to the other connected socket aka user
+    const receiverSocketId = getReceiverSocketId(receiverId);
+    if (receiverSocketId) {
+      // only want to send the event "to" that user
+      // io.to(<socket_id>).emit() used to send events to specific clients
+      io.to(receiverSocketId).emit("newMessage", newMessage); 
+    }
+
     // respond with the new message created
     res.status(201).json(newMessage);
 

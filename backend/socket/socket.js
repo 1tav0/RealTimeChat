@@ -14,6 +14,11 @@ const io = new Server(server, {
   }
 });
 
+// real time messages 
+export const getReceiverSocketId = (receiverId) => {
+  return userSocketMap[receiverId];
+}
+
 
 // create a map of the sockets that are connected for that userid
 const userSocketMap = {}; // {userid: socketId}
