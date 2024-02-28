@@ -1,3 +1,4 @@
+import path from "path";
 import express from "express";
 import dotenv from "dotenv";
 import cookieParser from "cookie-parser";
@@ -7,7 +8,10 @@ import authRoute from "./routes/auth.routes.js";
 import messageRoute from "./routes/message.routes.js";
 import userRoute from "./routes/user.routes.js";
 import connect from "./db/connect.js";
-import { app,server } from './socket/socket.js'
+import { app, server } from './socket/socket.js'
+
+const PORT = process.env.PORT || 3000;
+const __dirname = path.resolve();
 
 //middleware
 app.use(cors({
@@ -23,11 +27,14 @@ app.use(cookieParser());
 app.use("/api/v1", userRoute);
 app.use("/api/v1", messageRoute);
 app.use("/api/v1", authRoute);
-// app.get("/", (req, res) => {
-//   res.send("Hello from server");
-// });
+
+app.use(express.static(path.join(__dirname, "/realtimechatapp-client/dist")))
+
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "realtimechatapp-client", "dist", "index.html"));
+})
+
 // server
-const PORT = process.env.PORT || 3000;
 const start = async () => {
   try {
     await connect(process.env.MONGO_URI);
