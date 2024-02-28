@@ -2,8 +2,12 @@ import { useEffect, useRef } from "react";
 import useGetMessages from "../../hooks/useGetMessages"
 import MessageSkeleton from "../Skeletons/MessageSkeleton";
 import Message from "./Message";
+import useListenMessages from "../../hooks/useListenMessages";
 const Messages = () => {
   const { loading, messages } = useGetMessages();
+  // will listen for any incoming messages from the socket
+  useListenMessages();
+  
   const lastMessageRef = useRef();
   useEffect(() => { 
     // rendering time affects this
