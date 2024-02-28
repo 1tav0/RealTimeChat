@@ -11,6 +11,7 @@ import connect from "./db/connect.js";
 import { app, server } from './socket/socket.js'
 
 const PORT = process.env.PORT || 3000;
+// we get the directive we are in
 const __dirname = path.resolve();
 
 //middleware
@@ -27,9 +28,13 @@ app.use(cookieParser());
 app.use("/api/v1", userRoute);
 app.use("/api/v1", messageRoute);
 app.use("/api/v1", authRoute);
-
+// static middleware to serve static files such as html, css, js, image and sound files
+// connect where we want these static files to be stored
+// our bundled app is will be stored in dist
 app.use(express.static(path.join(__dirname, "/realtimechatapp-client/dist")))
 
+//create the static file and store in dist folder for any route that is not the ones above
+// with this we can run our frontend from the server as well
 app.get("*", (req, res) => {
   res.sendFile(path.join(__dirname, "realtimechatapp-client", "dist", "index.html"));
 })
